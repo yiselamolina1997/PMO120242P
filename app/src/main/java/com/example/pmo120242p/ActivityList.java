@@ -3,8 +3,11 @@ package com.example.pmo120242p;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,8 +45,18 @@ public class ActivityList extends AppCompatActivity {
 
         ObtenerInfo();
 
-      ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Arreglo);
-      listperson.setAdapter(adp);
+        ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Arreglo);
+        listperson.setAdapter(adp);
+
+      listperson.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+              String ElementoSeleccionado = (String) parent.getItemAtPosition(position);
+
+              Toast.makeText(getApplicationContext(),ElementoSeleccionado, Toast.LENGTH_LONG).show();
+
+          }
+      });
 
 
     }
@@ -62,9 +75,9 @@ public class ActivityList extends AppCompatActivity {
             person = new Personas();
             person.setId(cursor.getInt(0));
             person.setNombres(cursor.getString(1));
-            person.setApellidos(cursor.getString(0));
-            person.setEdad(cursor.getInt(0));
-            person.setCorreo(cursor.getString(0));
+            person.setApellidos(cursor.getString(2));
+            person.setEdad(cursor.getInt(3));
+            person.setCorreo(cursor.getString(4));
 
             lista.add(person);
         }
@@ -80,7 +93,7 @@ public class ActivityList extends AppCompatActivity {
         Arreglo = new ArrayList<String>();
         for (int i=0; 1 < lista.size(); i++)
         {
-            Arreglo.add(lista.get(i).getId()  + " "+
+            Arreglo.add(lista.get(i).getId() + " "+
                     lista.get(i).getNombres() + " " +
                     lista.get(i).getApellidos());
 
