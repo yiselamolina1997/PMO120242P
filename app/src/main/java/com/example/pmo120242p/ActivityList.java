@@ -15,8 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import Configuracion.Personas;
 import Configuracion.SQLiteConexion;
@@ -24,10 +24,13 @@ import Configuracion.Trans;
 
 public class ActivityList extends AppCompatActivity {
 
+
     SQLiteConexion conexion;
     ListView listperson;
     ArrayList<Personas> lista;
+
     ArrayList<String> Arreglo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,25 +43,22 @@ public class ActivityList extends AppCompatActivity {
             return insets;
         });
 
-        conexion = new SQLiteConexion(this, Trans.DBname,null, Trans.Version);
-        listperson = (ListView) findViewById(R.id.listperson);
+        conexion = new SQLiteConexion(this, Trans.DBname, null, Trans.Version);
+        listperson = (ListView) findViewById (R.id.listperson);
 
         ObtenerInfo();
 
         ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Arreglo);
         listperson.setAdapter(adp);
 
-      listperson.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-          @Override
-          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              String ElementoSeleccionado = (String) parent.getItemAtPosition(position);
+        listperson.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String ElementoSeleccionado = (String) parent.getItemAtPosition(position);
 
-              Toast.makeText(getApplicationContext(),ElementoSeleccionado, Toast.LENGTH_LONG).show();
-
-          }
-      });
-
-
+                Toast.makeText(getApplicationContext(), ElementoSeleccionado, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void ObtenerInfo()
@@ -67,12 +67,12 @@ public class ActivityList extends AppCompatActivity {
         Personas person = null;
         lista = new ArrayList<Personas>();
 
-        // Cursor para recorrer los datos en la tabla
+        //Cursor para recorrer los datos de la tabla
         Cursor cursor = db.rawQuery(Trans.SelectAllPerson, null);
 
         while (cursor.moveToNext())
         {
-            person = new Personas();
+            person = new  Personas();
             person.setId(cursor.getInt(0));
             person.setNombres(cursor.getString(1));
             person.setApellidos(cursor.getString(2));
@@ -91,13 +91,11 @@ public class ActivityList extends AppCompatActivity {
     private void FillDate()
     {
         Arreglo = new ArrayList<String>();
-        for (int i=0; 1 < lista.size(); i++)
+        for(int i=0; i < lista.size(); i++)
         {
             Arreglo.add(lista.get(i).getId() + " "+
                     lista.get(i).getNombres() + " " +
                     lista.get(i).getApellidos());
-
         }
     }
-
 }
