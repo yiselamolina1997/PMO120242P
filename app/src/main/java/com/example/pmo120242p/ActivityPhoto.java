@@ -29,6 +29,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -180,7 +181,8 @@ public class ActivityPhoto extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteImage);
 
         byte[] byteArray = byteImage.toByteArray();
-        return android.util.Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
+
 
 }

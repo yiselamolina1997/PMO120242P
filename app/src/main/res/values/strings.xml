@@ -6,6 +6,7 @@
     <string name="IngresoEdad">Ingrese su edad</string>
     <string name="IngresoCorreo">Ingrese su correo</string>
     <string name="TomarFoto">Tomar Foto</string>
+    <string name="take_video">Grabar Video</string>
 
 
 </resources>
